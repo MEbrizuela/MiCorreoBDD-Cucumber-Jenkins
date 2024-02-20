@@ -9,4 +9,3 @@ Feature: Carga de nuevo envío individual
     And el envío se muestra en la grilla de envíos pendientes
     And presiona en cotizar
     And se muestra la grilla de checkout
-    
