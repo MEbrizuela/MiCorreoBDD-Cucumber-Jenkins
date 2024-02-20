@@ -4,16 +4,16 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 
 import java.time.Duration;
 import java.util.Properties;
 
 public class DriverManager {
-    private static ThreadLocal<WebDriver> driverThreadLocal = new ThreadLocal<>();
+    private static final ThreadLocal<WebDriver> driverThreadLocal = new ThreadLocal<>();
     public static Properties config;
 
     static {
@@ -21,7 +21,7 @@ public class DriverManager {
         try {
             config.load(DriverManager.class.getClassLoader().getResourceAsStream("config.properties"));
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException("Error loading configuration", e);
         }
     }
 
@@ -34,50 +34,43 @@ public class DriverManager {
         String[] browserList = browsers.split(", ");
 
         for (String browser : browserList) {
-            WebDriver driver = null;
+            WebDriver driver;
 
             switch (browser) {
                 case "chrome":
                     WebDriverManager.chromedriver().setup();
                     ChromeOptions chromeOptions = new ChromeOptions();
                     chromeOptions.addArguments("--ignore-certificate-errors");
-                    driverThreadLocal.set(new ChromeDriver(chromeOptions));
-                    configureDriver();
+                    driver = new ChromeDriver(chromeOptions);
                     break;
                 case "firefox":
                     WebDriverManager.firefoxdriver().setup();
                     FirefoxOptions firefoxOptions = new FirefoxOptions();
                     firefoxOptions.addArguments("--ignore-certificate-errors");
-                    driverThreadLocal.set(new FirefoxDriver(firefoxOptions));
-                    configureDriver();
+                    driver = new FirefoxDriver(firefoxOptions);
                     break;
                 case "edge":
                     WebDriverManager.edgedriver().setup();
                     EdgeOptions edgeOptions = new EdgeOptions();
                     edgeOptions.addArguments("--ignore-certificate-errors");
-                    driverThreadLocal.set(new EdgeDriver(edgeOptions));
-                    configureDriver();
+                    driver = new EdgeDriver(edgeOptions);
                     break;
                 default:
                     throw new IllegalArgumentException("Invalid browser: " + browser);
             }
 
-            if (driver != null) {
-                driverThreadLocal.set(driver);
-                System.out.println("Driver initialized successfully for: " + browser);
-            }
+            driver.manage().deleteAllCookies();
+            driver.manage().window().maximize();
+            driver.manage().timeouts().implicitlyWait(Duration.ofMillis(5000));
+            driverThreadLocal.set(driver);
+            System.out.println("Driver initialized successfully for: " + browser);
         }
     }
 
-    private static void configureDriver() {
-        getDriver().manage().deleteAllCookies();
-        getDriver().manage().window().maximize();
-        getDriver().manage().timeouts().implicitlyWait(Duration.ofMillis(5000));
-    }
-
     public static void quitDriver() {
-        if (driverThreadLocal.get() != null) {
-            driverThreadLocal.get().quit();
+        WebDriver driver = driverThreadLocal.get();
+        if (driver != null) {
+            driver.quit();
             driverThreadLocal.remove();
         }
     }

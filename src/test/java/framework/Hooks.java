@@ -11,6 +11,7 @@ import page.BasePage;
 public class Hooks {
     private static WebDriver driver;
     private static Scenario currentScenario;
+    static BasePage basePage;
 
     @Before
     public void setUp(Scenario scenario) {
@@ -44,11 +45,11 @@ public class Hooks {
             byte[] screenshot = screenshotDriver.getScreenshotAs(OutputType.BYTES);
             if (isFailed) {
                 // Adjuntar la captura de pantalla en caso de fallo
-                BasePage.waitForSeconds(2);
+                basePage.waitForSeconds(2);
                 currentScenario.attach(screenshot, "image/png", "Captura de pantalla en caso de fallo");
             } else {
                 // Adjuntar la captura de pantalla en caso de éxito
-                BasePage.waitForSeconds(2);
+                basePage.waitForSeconds(2);
                 currentScenario.attach(screenshot, "image/png", "Captura de pantalla en caso de éxito");
             }
         } catch (Exception e) {

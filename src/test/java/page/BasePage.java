@@ -1,11 +1,11 @@
 package page;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.junit.Assert;
+import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.time.Duration;
 
 public class BasePage {
@@ -16,12 +16,53 @@ public class BasePage {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(20));
     }
+
     public WebDriver getDriver() {
         return driver;
     }
 
     public void click(By locator) {
         findElement(locator).click();
+    }
+
+    public void clickWithRetry(By locator) {
+        int maxAttempts = 3; // Número máximo de intentos
+        for (int attempt = 0; attempt < maxAttempts; attempt++) {
+            try {
+                click(locator);
+                return; // Salir del método si la operación de clic tiene éxito
+            } catch (StaleElementReferenceException | ElementClickInterceptedException e) {
+                // Manejar la excepción (puede agregar un registro o tomar una captura de pantalla aquí)
+                System.err.println("Error al hacer clic en el elemento: " + e.getMessage());
+                // Esperar antes de intentar nuevamente
+                waitForSeconds(1);
+            }
+        }
+        // Si todos los intentos fallan, lanzar la excepción
+        throw new ElementNotInteractableException("No se pudo interactuar con el elemento después de " + maxAttempts + " intentos");
+    }
+
+    public void moveToElementAndClick(By locator) {
+        Actions actions = new Actions(driver);
+        WebElement element = findElement(locator);
+        actions.moveToElement(element).click().perform();
+    }
+    public String getCurrentURL() {
+        return driver.getCurrentUrl();
+    }
+
+    public void assertURL(String expectedUrl) {
+        String currentUrl = getCurrentURL();
+        Assert.assertEquals("La URL actual no coincide con la URL esperada", expectedUrl, currentUrl);
+    }
+
+    public boolean waitForUrlToBe(String url, int timeoutInSeconds) {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds));
+            return wait.until(ExpectedConditions.urlToBe(url));
+        } catch (TimeoutException e) {
+            return false; // El tiempo de espera se agotó antes de que la URL coincidiera
+        }
     }
 
     public void writeText(By locator, String text) {
@@ -31,15 +72,24 @@ public class BasePage {
     }
 
     public String getText(By locator) {
-        return findElement(locator).getText();
+        return findElement(locator).getText().trim();
     }
 
     public static void waitForSeconds(int seconds) {
         try {
             Thread.sleep(seconds * 1000);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            Thread.currentThread().interrupt();
         }
+    }
+
+    public void waitForElementToBeClickable(By locator) {
+        wait.until(ExpectedConditions.elementToBeClickable(locator));
+    }
+
+    public void scrollToBottom() {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollTo(0, document.body.scrollHeight);");
     }
 
     public void scrollToElement(By locator) {
@@ -59,4 +109,3 @@ public class BasePage {
         return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
     }
 }
-

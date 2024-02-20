@@ -18,8 +18,6 @@ B
 Jenkinsfile.groovy,0\0\006a6d18d9635bbc82885cd69cffbfa60d69b97d
 w
 G.idea/sonarlint/issuestore/0/0/00619e8ed3c478baf77146b160d72321ab85b552,e\7\e72246846be197f4327fecd27a53abb457af0f97
-_
-/src/test/java/stepsDefinitions/MCIB18Steps.java,5\b\5ba3dd795428473e9949564e1fd0108b6aeff3ac
 R
 "src/test/java/framework/Hooks.java,f\a\fa332ec87964c2135d22bf71f680fe700eff8bf5
 c
@@ -28,3 +26,13 @@ P
  src/test/java/page/BasePage.java,9\6\96e5d669619d47949fb3f53d4236d7c500fef025
 Z
 *src/test/java/framework/DriverManager.java,7\4\74a9fb6001ac9ac11f319c975fda024e4851fe3a
+m
+=src/test/java/stepsDefinitions/NuevoEnvioIndividualSteps.java,c\b\cb5001e7f63ac1f0e0daa1f085581482bbf557e1
+Q
+!src/test/java/page/LoginPage.java,a\4\a43a570a11eb31cf0979c403e3341d293e78a690
+W
+'src/test/java/page/MessageHomePage.java,8\b\8b5a556f86316a7a2f9413929e0f36e607e7fb5f
+R
+"src/test/java/page/EnviosPage.java,b\3\b337f9a451552639decfe6a6c95701ad2d675300
+V
+&src/test/java/page/FormularioPage.java,b\b\bb25e6fa906e44c928a885f9a9345922602fbd3f

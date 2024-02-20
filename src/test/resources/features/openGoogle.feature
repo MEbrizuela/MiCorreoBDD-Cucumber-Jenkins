@@ -1,8 +1,9 @@
-@PRUEBA1
-Feature: Open Google and Verify
 
-  Scenario: Open Google and Verify Title
+Feature: Open MiCorreo and Verify
+
+  @PRUEBA1
+  Scenario: Open MiCorreo and Verify Title
     Given the user opens the browser
-    When the user navigates to Google
+    When the user navigates to MiCorreo
     Then the user should be on the Google search page
 
