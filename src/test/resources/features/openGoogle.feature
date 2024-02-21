@@ -1,7 +1,7 @@
 
 Feature: Open MiCorreo and Verify
 
-  @PRUEBA1
+  @PRUEBA2
   Scenario: Open MiCorreo and Verify Title
     Given the user opens the browser
     When the user navigates to MiCorreo

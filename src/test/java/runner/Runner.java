@@ -11,7 +11,7 @@ import org.junit.runner.RunWith;
         publish = true,
         features = {"src/test/resources/features"},
         glue = {"stepsDefinitions", "framework"}, // Agrega el paquete de los hooks y framework
-        tags =  "@PRUEBA2"
+        tags =  "@PRUEBA1"
 )
 public class Runner {
 }

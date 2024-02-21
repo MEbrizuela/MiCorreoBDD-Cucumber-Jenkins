@@ -151,6 +151,7 @@
                             <includes>
                                 <include>**/*Runner.java</include>
                                 <include>**/RunnerTest.java</include>
+                                <include>**/TestRunner.java</include>
                             </includes>
                             <parallel>methods</parallel>
                             <useUnlimitedThreads>true</useUnlimitedThreads>
