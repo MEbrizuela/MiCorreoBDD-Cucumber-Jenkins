@@ -74,7 +74,12 @@ public class BasePage {
     public String getText(By locator) {
         return findElement(locator).getText().trim();
     }
-
+    public boolean compararTextoConMensajeEsperado(By locator, String textoEsperado) {
+        // Obtener el texto del sitio utilizando el localizador proporcionado
+        String textoDelSitio = getText(locator);
+        // Comparar el texto del sitio con el texto esperado
+        return textoDelSitio.equals(textoEsperado);
+    }
     public static void waitForSeconds(int seconds) {
         try {
             Thread.sleep(seconds * 1000);
@@ -108,4 +113,38 @@ public class BasePage {
     private WebElement findElement(By locator) {
         return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
     }
+
+    public void validarCampo(String nombreCampo, By locator, String textoEsperado) {
+        String textoCampo = getText(locator); // Utiliza el método getText() de BasePage para obtener el texto del elemento
+        // Verifica si el texto del campo coincide con el texto esperado
+        if (textoCampo.equals(textoEsperado)) {
+            System.out.println("El campo '" + nombreCampo + "' está correctamente llenado: " + textoCampo);
+        } else {
+            System.out.println("El campo '" + nombreCampo + "' no coincide con el texto esperado.");
+            System.out.println("Texto esperado: " + textoEsperado);
+            System.out.println("Texto actual: " + textoCampo);
+        }
+    }
+    public boolean validarCampoExistenteYEditable(By locator) {
+        try {
+            // Buscar el elemento por el locator proporcionado
+            WebElement element = findElement(locator);
+
+            // Validar que el elemento existe
+            Assert.assertTrue(element.isDisplayed());
+
+            // Validar que el elemento es editable (en este caso, solo para campos de texto)
+            Assert.assertTrue(element.isEnabled());
+
+            // Si se llega a este punto, la validación fue exitosa
+            return true;
+        } catch (Exception e) {
+            // En caso de cualquier excepción, capturar y mostrar el mensaje de error
+            e.printStackTrace();
+            System.out.println("Error al validar el campo: " + e.getMessage());
+            // La validación no fue exitosa
+            return false;
+        }
+    }
+
 }

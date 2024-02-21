@@ -7,11 +7,13 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import page.BasePage;
+import page.LoginPage;
 
 public class Hooks {
     private static WebDriver driver;
     private static Scenario currentScenario;
     static BasePage basePage;
+    static LoginPage loginPage;
 
     @Before
     public void setUp(Scenario scenario) {
@@ -22,6 +24,7 @@ public class Hooks {
             driver = DriverManager.getDriver();
             // Configurar el escenario actual
             currentScenario = scenario;
+            loginPage = new LoginPage(driver);
         } catch (Exception e) {
             System.err.println("Error al inicializar el WebDriver: " + e.getMessage());
             // Puedes agregar lógica adicional aquí, como marcar el escenario como fallido
@@ -33,6 +36,10 @@ public class Hooks {
     public void tearDown(Scenario scenario) {
         // Tomar captura de pantalla al final del escenario
         takeScreenShot(scenario.isFailed());
+        // Verificar si loginPage no es nulo antes de llamar a logout
+        if (loginPage != null) {
+            loginPage.logout();
+        }
         // Cerrar el driver al final de cada escenario solo si no se ha cerrado ya
         if (DriverManager.getDriver() != null) {
             DriverManager.quitDriver();

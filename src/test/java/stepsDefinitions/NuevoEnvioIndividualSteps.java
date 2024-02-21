@@ -44,14 +44,25 @@ public class NuevoEnvioIndividualSteps {
     public void newPackageAddCheck() {
         formularioPage.validarFormularioEnvios();
     }
-    @And("Presina en cotizar")
-    public void clickCotizar(){
-        formularioPage.clickWithRetry(By.xpath("//label[@for='C_radio']"));
-        formularioPage.clickWithRetry(By.xpath("//button[@id='btnpedido']"));
+    @And("presiona en cotizar")
+    public void presiona_en_cotizar() {
+        formularioPage.cotizar();
+
     }
-    @And("Se muetra la grilla de checkout")
-    public void newPackageAddCheckOut(){
+    @And("se muestra la grilla de checkout")
+    public void se_muestra_la_grilla_de_checkout() {
         formularioPage.assertURL("https://twsec02.correoargentino.com.ar/MiCorreo/public/checkout");
         formularioPage.validarFormularioCheckout();
+
+    }
+
+    @Then("realiza el pago del envío")
+    public void realiza_el_pago_del_envío() {
+        formularioPage.pagar();
+    }
+    @And("se confirma que el pago se ha realizado con éxito")
+    public void se_confirma_que_el_pago_se_ha_realizado_con_éxito() {
+        formularioPage.verificarMensajeDeExito();
+        formularioPage.mostrarCodigoTNEnvio();
     }
 }

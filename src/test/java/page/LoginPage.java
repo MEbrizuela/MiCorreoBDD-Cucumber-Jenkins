@@ -1,10 +1,7 @@
 package page;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 
 public class LoginPage extends BasePage {
@@ -52,6 +49,12 @@ public class LoginPage extends BasePage {
             }
         }
         System.out.println("Inicio de sesión fallido después de " + maxIntentos + " intentos.");
+    }
+
+    public void logout(){
+        click(By.id("liusuariolink"));
+        waitForSeconds(2);
+        clickWithRetry(By.xpath("//a[normalize-space()='Cerrar sesión']"));
     }
 }
 
