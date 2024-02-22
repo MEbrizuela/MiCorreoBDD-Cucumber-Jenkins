@@ -15,6 +15,17 @@ pipeline {
             }
         }
 
+        stage('Install Stage') {
+            steps {
+                script {
+                    def mvnHome = tool name: 'maven_3_9_6', type: 'maven'
+                    withEnv(["PATH+MAVEN=${mvnHome}/bin"]) {
+                        bat "${mvnHome}\\bin\\mvn install"
+                    }
+                }
+            }
+        }
+
         stage('Test Stage') {
             steps {
                 script {
