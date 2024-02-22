@@ -13,6 +13,6 @@ import org.junit.runner.RunWith;
         glue = {"stepsDefinitions", "framework"}, // Agrega el paquete de los hooks y framework
         tags =  "@PRUEBA1"
 )
-public class Runner {
+public class TestRunner {
 }
 

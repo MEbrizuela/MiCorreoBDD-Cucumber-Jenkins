@@ -36,3 +36,5 @@ R
 "src/test/java/page/EnviosPage.java,b\3\b337f9a451552639decfe6a6c95701ad2d675300
 V
 &src/test/java/page/FormularioPage.java,b\b\bb25e6fa906e44c928a885f9a9345922602fbd3f
+T
+$src/test/java/runner/TestRunner.java,1\8\18b3e1953776f096053d202d655721ec032799e7
