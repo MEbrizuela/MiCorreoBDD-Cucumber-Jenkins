@@ -1,4 +1,4 @@
-@PRUEBA1
+@E2E
 Feature: Carga de nuevo envío individual
 
   Scenario: Carga de nuevo envío individual

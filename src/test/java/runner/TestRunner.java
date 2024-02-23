@@ -6,12 +6,14 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        plugin = {"json:target/build/cucumber.json"},
+        plugin = { "pretty", "json:target/cucumber-reports/Cucumber.json",
+                "junit:target/cucumber-reports/Cucumber.xml",
+                "html:target/cucumber-reports"},
         stepNotifications = true,
         publish = true,
-        features = {"src/test/resources/features"},
+        features = {"src/main/resources/features"},
         glue = {"stepsDefinitions", "framework"}, // Agrega el paquete de los hooks y framework
-        tags =  "@PRUEBA1"
+        tags =  "@E2E"
 )
 public class TestRunner {
 }
