@@ -8,7 +8,8 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         plugin = { "pretty", "json:target/cucumber-reports/Cucumber.json",
                 "junit:target/cucumber-reports/Cucumber.xml",
-                "html:target/cucumber-reports"},
+                "html:target/cucumber-reports/Cucumber.html"},
+        monochrome = true,
         stepNotifications = true,
         publish = true,
         features = {"src/main/resources/features"},
@@ -16,5 +17,6 @@ import org.junit.runner.RunWith;
         tags =  "@E2E"
 )
 public class TestRunner {
+
 }
 
