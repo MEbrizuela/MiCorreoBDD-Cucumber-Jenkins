@@ -26,6 +26,9 @@ public class FormularioPage extends BasePage {
     private By anchoCheckoutLocator = By.xpath("(//td[@class='table-text'])[8]");
     private By alturaCheckoutLocator = By.xpath("(//td[@class='table-text'])[9]");
     private By precioUnitarioLocator = By.xpath("(//td[@class='table-text'])[10]");
+    private By pagoTarjeta = By.id("radioTarjeta");
+    private By pagoSaldo = By.id("radioSaldo");
+    private By pagoCtaCte = By.id("radioCuentaCorriente");
 
     public FormularioPage(WebDriver driver) {
         super(driver);
@@ -100,7 +103,7 @@ public class FormularioPage extends BasePage {
 
 
     public void cotizar(){
-        clickWithRetry(By.xpath("//div[@class='*checkbox *checkbox-primary']"));
+        clickWithRetry(By.xpath("(//div[@class='*checkbox *checkbox-primary'])[1]"));
         waitForSeconds(1);
         clickWithRetry(By.xpath("//button[@id='btnpedido']"));
         waitForSeconds(3);
@@ -147,7 +150,22 @@ public class FormularioPage extends BasePage {
         System.out.println("El código TN del envío es: " + codigoTN);
     }
 
-    public void pagar(){
+    public void seleccionarMedioPago(String medioPago) {
+        switch (medioPago.toLowerCase()) {
+            case "tarjeta":
+                clickWithRetry(pagoTarjeta);
+                break;
+            case "cuenta corriente":
+                clickWithRetry(pagoCtaCte);
+                break;
+            case "saldo":
+                clickWithRetry(pagoSaldo);
+                break;
+            default:
+                throw new IllegalArgumentException("Medio de pago no válido: " + medioPago);
+        }
+    }
+    public void pagarConTarjeta(){
         clickWithRetry(By.xpath("//button[@class='btn btn-arrow-right btn-arrow-siguiente']"));
         waitForSeconds(2);
         assertURL("https://twsec02.correoargentino.com.ar/MiCorreo/public/spsdecidir/form");
@@ -170,4 +188,5 @@ public class FormularioPage extends BasePage {
         clickWithRetry(By.xpath("//button[@id='pagar']"));
         waitForSeconds(4);
     }
+
 }

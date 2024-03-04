@@ -12,9 +12,10 @@ import org.junit.runner.RunWith;
         monochrome = true,
         stepNotifications = true,
         publish = true,
+        snippets = CucumberOptions.SnippetType.CAMELCASE,
         features = {"src/main/resources/features"},
         glue = {"stepsDefinitions", "framework"}, // Agrega el paquete de los hooks y framework
-        tags =  "@E2E"
+        tags =  "@TEST_MCIB-87"
 )
 public class TestRunner {
 

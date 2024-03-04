@@ -1,6 +1,7 @@
 package framework;
 
 import io.cucumber.java.After;
+import io.cucumber.java.AfterStep;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import org.openqa.selenium.OutputType;
@@ -38,11 +39,19 @@ public class Hooks {
         takeScreenShot(scenario.isFailed());
         // Verificar si loginPage no es nulo antes de llamar a logout
         if (loginPage != null) {
-            loginPage.logout();
+            try {
+                loginPage.logout();
+            } catch (Exception e) {
+                System.err.println("Error al hacer logout: " + e.getMessage());
+            }
         }
         // Cerrar el driver al final de cada escenario solo si no se ha cerrado ya
         if (DriverManager.getDriver() != null) {
-            DriverManager.quitDriver();
+            try {
+                DriverManager.quitDriver();
+            } catch (Exception e) {
+                System.err.println("Error al cerrar el driver: " + e.getMessage());
+            }
         }
     }
 

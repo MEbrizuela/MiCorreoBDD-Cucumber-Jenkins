@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 
+
 public class LoginPage extends BasePage {
     private By enterBtn = By.xpath("//a[contains(text(),'Ingresá')]");
     private By emailLocator = By.id("email");
@@ -51,10 +52,35 @@ public class LoginPage extends BasePage {
         System.out.println("Inicio de sesión fallido después de " + maxIntentos + " intentos.");
     }
 
+
+    public void loginOutline(String tipoUsuario) {
+        String email;
+        String password = "123123"; // Contraseña común para todos los tipos de usuario
+
+        if (tipoUsuario.equals("consumidor final")) {
+            email = "cf_tester02@yopmail.com";
+        } else if (tipoUsuario.equals("monotributista")) {
+            email = "mono_tester@yopmail.com";
+        } else if (tipoUsuario.equals("empresa")) {
+            email = "empctacte_test@yopmail.com";
+        } else {
+            throw new IllegalArgumentException("Tipo de usuario no válido: " + tipoUsuario);
+        }
+
+        // Llenar campos de email y contraseña con las credenciales específicas
+        writeText(emailLocator, email);
+        writeText(passwordLocator, password);
+        click(btnLogin);
+    }
+
+
+
     public void logout(){
         click(By.id("liusuariolink"));
         waitForSeconds(2);
         clickWithRetry(By.xpath("//a[normalize-space()='Cerrar sesión']"));
     }
 }
+
+
 

@@ -1,13 +1,9 @@
 
-P
- src/test/java/runner/Runner.java,0\0\00619e8ed3c478baf77146b160d72321ab85b552
 ]
 -.idea/sonarlint/securityhotspotstore/index.pb,8\8\88a9255124c95bdc913197c120a8d560edc59c8e
 :
 
 .gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
-Å
-Q.idea/sonarlint/securityhotspotstore/0/0/00619e8ed3c478baf77146b160d72321ab85b552,8\0\80369bb1f0a31a7a7f00143a8878a3177e50a34f
 7
 pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
 S
@@ -16,12 +12,8 @@ S
 #.idea/sonarlint/issuestore/index.pb,9\f\9fe84ebb15faf917b7def6236dba604453cc61e0
 B
 Jenkinsfile.groovy,0\0\006a6d18d9635bbc82885cd69cffbfa60d69b97d
-w
-G.idea/sonarlint/issuestore/0/0/00619e8ed3c478baf77146b160d72321ab85b552,e\7\e72246846be197f4327fecd27a53abb457af0f97
 R
 "src/test/java/framework/Hooks.java,f\a\fa332ec87964c2135d22bf71f680fe700eff8bf5
-c
-3src/test/java/stepsDefinitions/OpenGoogleSteps.java,6\1\611f8905baa8a7089c11171133521abffd82d85b
 P
  src/test/java/page/BasePage.java,9\6\96e5d669619d47949fb3f53d4236d7c500fef025
 Z
@@ -38,3 +30,5 @@ V
 &src/test/java/page/FormularioPage.java,b\b\bb25e6fa906e44c928a885f9a9345922602fbd3f
 T
 $src/test/java/runner/TestRunner.java,1\8\18b3e1953776f096053d202d655721ec032799e7
+b
+2src/test/java/stepsDefinitions/MisEnviosSteps.java,8\9\8910b6f8d5744e87711f0b165b82fbfe6bf0ac14

@@ -1,8 +1,9 @@
 @E2E
-Feature: Carga de nuevo envío individual
+Feature: Gestion de envios
 
-  Scenario: Carga de nuevo envío individual
-    Given el usuario consumidor final está logueado y en la page home
+  Scenario: Nuevo envío individual consumidor final a domicilio clasico y pago con tarjeta
+
+    Given el usuario está logueado y en la page home
     When ingresa en nuevo envío individual
     And llena los campos de origen destino y paquete
     And presiona en agregar envío
@@ -11,3 +12,6 @@ Feature: Carga de nuevo envío individual
     And se muestra la grilla de checkout
     Then realiza el pago del envío
     And se confirma que el pago se ha realizado con éxito
+
+
+
