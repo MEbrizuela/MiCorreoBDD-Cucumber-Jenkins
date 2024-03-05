@@ -22,7 +22,7 @@ public class NuevoEnvioIndividualSteps {
     private FormularioPage formularioPage = new FormularioPage(driver);
 
 
-    @Given("el usuario está logueado y en la page home")
+    @Given("el usuario consumidor final está logueado y en la page home")
     public void browserInit(){
         driver.get(baseUrl);
         loginPage.login();
