@@ -107,7 +107,8 @@ public class PageNuevoEnvio extends BasePage {
     }
     public void expreso(){
         clickWithRetry(envioExpresoLocator);
-        clickWithRetry(btnNextLocator);
+        //clickWithRetry(btnNextLocator);
+        waitForSeconds(2);
     }
 
     public void EmpDomicilioExpresoTarjeta(){
