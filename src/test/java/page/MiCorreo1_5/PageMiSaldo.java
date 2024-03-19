@@ -6,6 +6,7 @@ import framework.BasePage;
 
 public class PageMiSaldo extends PageNuevoEnvio {
     private By btnHamburguesaMenu = By.xpath("//button[@class='btn-menu']");
+    protected By btnPagarLocator2 = By.xpath("//button[@id='pagar']");
     private By btnMiSaldo = By.xpath("//body/div[@id='offcanvasWithBothOptions']/div[2]/ul[1]/li[4]/button[1]/span[1]");
     private By dropdownSaldoACargar = By.xpath("//select[@id='tipo_saldoModal']");
     private By cargarValorIgualEnvio = By.xpath("(//option[normalize-space()='Cargar valor igual al total de la compra'])[1]");
@@ -40,9 +41,9 @@ public class PageMiSaldo extends PageNuevoEnvio {
         writeText(nombreTitular,"TARJETA VISA");
         writeText(numeroDocumento,"27859328");
         try {
-            click(btnPagarLocator);
+            click(btnPagarLocator2);
         }catch (Exception e){
-            click(btnPagarLocator);}
+            click(btnPagarLocator2);}
         waitForSeconds(7);
     }
 }

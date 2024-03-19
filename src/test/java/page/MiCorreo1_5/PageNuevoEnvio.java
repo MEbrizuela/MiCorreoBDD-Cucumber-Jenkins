@@ -37,7 +37,6 @@ public class PageNuevoEnvio extends BasePage {
     private By observacionesLocator = By.xpath("//textarea[@id='observaciones']");
     private By envioExpresoLocator = By.xpath("//input[@class='form-check-input EXPRESO']");
     private By envioClasicoLocator = By.xpath("//input[@class='form-check-input CLASICO']");
-    protected By btnPagarLocator = By.xpath("//button[@id='pagar']");
     private By pagoSaldo = By.xpath("//input[@id='radioSaldo']");
     private By pagoCtaCte = By.xpath("//input[@id='radioCuentaCorriente']");
     private By pagoTarjeta = By.xpath("//input[@class='form-check-input' and @id='radioTarjeta']");
@@ -60,6 +59,7 @@ public class PageNuevoEnvio extends BasePage {
     private By btnContinuarMP = By.xpath("//button[@id='submit']");
     private By numeroDNIMP = By.xpath("//input[@id='number']");
     private By MailMP = By.xpath("//input[@id='email']");
+    private By btnPagarLocator = By.xpath("//button[@type='button' and @id='pagar' and text()='Pagar']");
     private By btnPagarMP = By.xpath("//button[@id=\"pay\"]");
     private By btnPagar2 = By.xpath("//button[@id='btnPagar']");
     protected By visaLocator = By.xpath("//label[@title='Visa']");
@@ -107,154 +107,15 @@ public class PageNuevoEnvio extends BasePage {
     }
     public void expreso(){
         clickWithRetry(envioExpresoLocator);
-        //clickWithRetry(btnNextLocator);
+        //clickWithRetry(btnPagarLocator);
         waitForSeconds(2);
+    }
+    public void preionarPagar1(){
+       clickWithRetry(btnPagarLocator);
+       waitForSeconds(1);
     }
 
-    public void EmpDomicilioExpresoTarjeta(){
-        click(nuevoEnvioLocator);
-        waitForSeconds(1);
-        click(seleccionarProvOrigen);
-        waitForSeconds(1);
-        click(provinciaCatamarca);
-        waitForSeconds(1);
-        click(seleccionarLocalidadOrigen);
-        waitForSeconds(1);
-        click(localidadBelen);
-        waitForSeconds(3);
-        click(btnNextLocator);
-        writeText(campoLargoLocator, "25");
-        writeText(campoAnchoLocator,"20");
-        writeText(campoAltoLocator, "25");
-        writeText(campoPesoLocator, "5");
-        writeText(campoValorDelContenido, "6500");
-        waitForSeconds(1);
-        try{
-            click(btnNextLocator);
-        }catch (Exception e){
-            click(btnNextLocator);
-        }
-        waitForSeconds(1);
-        click(tipoDeEntrega);
-        waitForSeconds(2);
-        click(entregaDomicilio);
-        writeText(nomApellidoLocator, "Juan Perez");
-        click(seleccionarProvincia);
-        waitForSeconds(2);
-        click(provinciaCordoba);
-        writeText(localidadLocator, "CORDOBA");
-        writeText(direccionLocator,"Rivadavia 1200");
-        writeText(codPostalLocator,"5000");
-        writeText(correoElectronico,"hola1@yopmail.com");
-        writeText(celularLocator,"351456789");
-        writeText(observacionesLocator,"Casa con rejas negras");
-        waitForSeconds(2);
-        try {
-            click(envioExpresoLocator);
-        }catch (Exception e){
-            click(envioExpresoLocator);
-        }
-        waitForSeconds(2);
-        try{
-            click(btnNextLocator);
-        }catch (Exception e){
-            click(btnNextLocator);
-        }
-        waitForSeconds(2);
-        click(btnPagarLocator);
-        waitForSeconds(2);
-        click(pagoTarjeta);
-        waitForSeconds(2);
-        try {
-            click(btnPagar2);
-        }catch(Exception e){
-            click(btnPagar2);}
-        waitForSeconds(2);
-        click(visaLocator);
-        writeText(numeroTarjeta,"4507990000004905");
-        writeText(codSeguridad,"775");
-        writeText(mesVencimiento,"08");
-        writeText(anoVencimiento,"25");
-        writeText(nombreTitular,"TARJETA VISA");
-        writeText(numeroDocumento,"27859328");
-        try {
-            click(btnPagarLocator);
-        }catch (Exception e){
-            click(btnPagarLocator);}
-        waitForSeconds(5);
-    }
-    public void EmpDomicilioClasicoTarjeta(){
-        click(nuevoEnvioLocator);
-        waitForSeconds(1);
-        click(seleccionarProvOrigen);
-        waitForSeconds(1);
-        click(provinciaCatamarca);
-        waitForSeconds(1);
-        click(seleccionarLocalidadOrigen);
-        waitForSeconds(1);
-        click(localidadBelen);
-        waitForSeconds(3);
-        click(btnNextLocator);
-        writeText(campoLargoLocator, "25");
-        writeText(campoAnchoLocator,"20");
-        writeText(campoAltoLocator, "25");
-        writeText(campoPesoLocator, "5");
-        writeText(campoValorDelContenido, "6500");
-        waitForSeconds(1);
-        try{
-            click(btnNextLocator);
-        }catch (Exception e){
-            click(btnNextLocator);
-        }
-        waitForSeconds(1);
-        click(tipoDeEntrega);
-        waitForSeconds(2);
-        click(entregaDomicilio);
-        writeText(nomApellidoLocator, "Pedro Paez");
-        click(seleccionarProvincia);
-        waitForSeconds(2);
-        click(provinciaCordoba);
-        writeText(localidadLocator, "CORDOBA");
-        writeText(direccionLocator,"Rivadavia 1200");
-        writeText(codPostalLocator,"5000");
-        writeText(correoElectronico,"hola1@yopmail.com");
-        writeText(celularLocator,"351456789");
-        writeText(observacionesLocator,"Casa con rejas negras");
-        waitForSeconds(2);
-        try {
-            click(envioClasicoLocator);
-        }catch (Exception e){
-            click(envioClasicoLocator);
-        }
-        waitForSeconds(2);
-        try{
-            click(btnNextLocator);
-        }catch (Exception e){
-            click(btnNextLocator);
-        }
-        waitForSeconds(2);
-        click(btnPagarLocator);
-        waitForSeconds(2);
-        click(pagoTarjeta);
-        waitForSeconds(2);
-        try {
-            click(btnPagar2);
-        }catch(Exception e){
-            click(btnPagar2);}
-        waitForSeconds(2);
-        click(visaLocator);
-        writeText(numeroTarjeta,"4507990000004905");
-        writeText(codSeguridad,"775");
-        writeText(mesVencimiento,"08");
-        writeText(anoVencimiento,"25");
-        writeText(nombreTitular,"TARJETA VISA");
-        writeText(numeroDocumento,"27859328");
-        try {
-            click(btnPagarLocator);
-        }catch (Exception e){
-            click(btnPagarLocator);}
-        waitForSeconds(5);
-    }
+
     public void EmpDomicilioExpresoCtaCte(){
         click(nuevoEnvioLocator);
         waitForSeconds(1);

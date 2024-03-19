@@ -32,12 +32,11 @@ public class NuevoEnvioSteps {
         pageNuevoEnvio.caracteristicasDelPaquete();
         pageNuevoEnvio.domicilio();
         pageNuevoEnvio.expreso();
-
     }
 
     @And("presiona en pagar")
     public void presionaEnAgregarEnvío() {
-        pageNuevoEnvio.click(By.xpath("//button[@type='button' and @id='pagar' and text()='Pagar']"));
+        pageNuevoEnvio.preionarPagar1();
     }
     @And("se muestra la grilla de checkout")
     public void seMuestraLaGrillaDeCheckout() {
