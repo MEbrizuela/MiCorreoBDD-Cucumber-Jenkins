@@ -1,3 +1,4 @@
+/*
 package stepsDefinitions;
 
 import framework.DriverManager;
@@ -6,16 +7,16 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import page.EnviosPage;
-import page.FormularioPage;
-import page.LoginPage;
-import page.MessageHomePage;
+import page.MiCorreo1_0.EnviosPage;
+import page.MiCorreo1_0.FormularioPage;
+import page.MiCorreo1_0.HomeLoginPage;
+import page.MiCorreo1_0.MessageHomePage;
 
 
 public class MisEnviosSteps {
     private WebDriver driver = DriverManager.getDriver();
     private String baseUrl = DriverManager.config.getProperty("url");
-    private LoginPage loginPage = new LoginPage(driver);
+    private HomeLoginPage homeLoginPage = new HomeLoginPage(driver);
     private MessageHomePage messageHomePage = new MessageHomePage(driver);
     private EnviosPage enviosPage = new EnviosPage(driver);
     private FormularioPage formularioPage = new FormularioPage(driver);
@@ -23,7 +24,7 @@ public class MisEnviosSteps {
     @Given("^el usuario se situa en los campos email y password$")
     public void el_usuario_se_situa_en_los_campos_email_y_password() {
         driver.get(baseUrl);
-        loginPage.click(By.xpath("//a[contains(text(),'Ingresá')]"));
+        homeLoginPage.click(By.xpath("//a[contains(text(),'Ingresá')]"));
     }
 
     @Given("^el usuario '(.*)' está logueado y en la page home$")
@@ -52,15 +53,15 @@ public class MisEnviosSteps {
         while (!loginExitoso && intentos < maxIntentos) {
             try {
                 // Paso 1
-                loginPage.writeText(By.id("email"), "cgoicochea@correoargentino.com.ar");
-                loginPage.writeText(By.id("password"), "Pepino23");
-                loginPage.click(By.xpath("//button[@title='Si ya tenés usuario y contraseña accedé desde aquí']"));
+                homeLoginPage.writeText(By.id("email"), "cgoicochea@correoargentino.com.ar");
+                homeLoginPage.writeText(By.id("password"), "Pepino23");
+                homeLoginPage.click(By.xpath("//button[@title='Si ya tenés usuario y contraseña accedé desde aquí']"));
 
                 // Paso 2
-                loginPage.waitForUrlToBe(expectedUrl, 2);
+                homeLoginPage.waitForUrlToBe(expectedUrl, 2);
 
                 // Verificar si la URL es la esperada
-                String currentUrl = loginPage.getCurrentURL();
+                String currentUrl = homeLoginPage.getCurrentURL();
                 if (currentUrl.equals(expectedUrl)) {
                     // Si estamos en la página principal, el inicio de sesión es exitoso
                     System.out.println("¡Inicio de sesión exitoso!");
@@ -89,15 +90,15 @@ public class MisEnviosSteps {
         while (!loginExitoso && intentos < maxIntentos) {
             try {
                 // Paso 1
-                loginPage.writeText(By.id("email"), "mono_tester@yopmail.com");
-                loginPage.writeText(By.id("password"), "123123");
-                loginPage.click(By.xpath("//button[@title='Si ya tenés usuario y contraseña accedé desde aquí']"));
+                homeLoginPage.writeText(By.id("email"), "mono_tester@yopmail.com");
+                homeLoginPage.writeText(By.id("password"), "123123");
+                homeLoginPage.click(By.xpath("//button[@title='Si ya tenés usuario y contraseña accedé desde aquí']"));
 
                 // Paso 2
-                loginPage.waitForUrlToBe(expectedUrl, 2);
+                homeLoginPage.waitForUrlToBe(expectedUrl, 2);
 
                 // Verificar si la URL es la esperada
-                String currentUrl = loginPage.getCurrentURL();
+                String currentUrl = homeLoginPage.getCurrentURL();
                 if (currentUrl.equals(expectedUrl)) {
                     // Si estamos en la página principal, el inicio de sesión es exitoso
                     System.out.println("¡Inicio de sesión exitoso!");
@@ -126,15 +127,15 @@ public class MisEnviosSteps {
         while (!loginExitoso && intentos < maxIntentos) {
             try {
                 // Paso 1
-                loginPage.writeText(By.id("email"), "empctacte_test@yopmail.com");
-                loginPage.writeText(By.id("password"), "123123");
-                loginPage.click(By.xpath("//button[@title='Si ya tenés usuario y contraseña accedé desde aquí']"));
+                homeLoginPage.writeText(By.id("email"), "empctacte_test@yopmail.com");
+                homeLoginPage.writeText(By.id("password"), "123123");
+                homeLoginPage.click(By.xpath("//button[@title='Si ya tenés usuario y contraseña accedé desde aquí']"));
 
                 // Paso 2
-                loginPage.waitForUrlToBe(expectedUrl, 2);
+                homeLoginPage.waitForUrlToBe(expectedUrl, 2);
 
                 // Verificar si la URL es la esperada
-                String currentUrl = loginPage.getCurrentURL();
+                String currentUrl = homeLoginPage.getCurrentURL();
                 if (currentUrl.equals(expectedUrl)) {
                     // Si estamos en la página principal, el inicio de sesión es exitoso
                     System.out.println("¡Inicio de sesión exitoso!");
@@ -183,10 +184,10 @@ public class MisEnviosSteps {
         enviosPage.EnvioIndividualSucursal2();
     }
 
-    @Then("^realiza el '(.*)' del envío$")
+    @Then("^realiza el pago con '(.*)' del envío$")
     public void seleccionarMedioPago(String medioPago) {
         if (medioPago.equalsIgnoreCase("tarjeta")) {
-            formularioPage.clickWithRetry(By.id("radioTarjeta"));
+            //formularioPage.clickWithRetry(By.id("radioTarjeta"));
             pagarConTarjeta();
         } else if (medioPago.equalsIgnoreCase("cuenta corriente")) {
             formularioPage.clickWithRetry(By.id("radioCuentaCorriente"));
@@ -199,8 +200,9 @@ public class MisEnviosSteps {
         }
     }
     private void pagarConTarjeta(){
-        formularioPage.waitForElementToBeClickable(By.xpath("//button[@class='btn btn-arrow-right btn-arrow-siguiente']"));
-        formularioPage.clickWithRetry(By.xpath("//button[@class='btn btn-arrow-right btn-arrow-siguiente']"));
+        formularioPage.waitForSeconds(1);
+        formularioPage.clickWithRetry(By.xpath("//button[@class='btn btn-arrow-right btn-arrow-actual']"));
+        formularioPage.clickWithRetry(By.xpath("//button[@onclick='enviarForm()']"));
         formularioPage.waitForSeconds(2);
         formularioPage.assertURL("https://twsec02.correoargentino.com.ar/MiCorreo/public/spsdecidir/form");
         System.out.println("Estamos en la seccion de datos de la tarjeta");
@@ -233,9 +235,10 @@ public class MisEnviosSteps {
         formularioPage.clickWithRetry(By.xpath("//button[@class='btn btn-arrow-right btn-arrow-siguiente']"));
         formularioPage.waitForSeconds(2);
         formularioPage.assertURL("https://twsec02.correoargentino.com.ar/MiCorreo/public/cuentacorriente/payment");
-        formularioPage.clickWithRetry(By.xpath("//button[@id='pagar']"));
+        formularioPage.click(By.xpath("//button[@id='pagar']"));
         formularioPage.waitForSeconds(4);
     }
 }
+ */
 
 

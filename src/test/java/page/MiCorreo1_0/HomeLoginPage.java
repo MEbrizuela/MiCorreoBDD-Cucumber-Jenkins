@@ -1,16 +1,16 @@
-package page;
+package page.MiCorreo1_0;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import framework.BasePage;
 
 
-
-public class LoginPage extends BasePage {
+public class HomeLoginPage extends BasePage {
     private By enterBtn = By.xpath("//a[contains(text(),'Ingresá')]");
     private By emailLocator = By.id("email");
     private By passwordLocator = By.id("password");
     private By btnLogin = By.xpath("//button[@title='Si ya tenés usuario y contraseña accedé desde aquí']");
-    public LoginPage(WebDriver driver) {
+    public HomeLoginPage(WebDriver driver) {
         super(driver);
     }
 
@@ -73,14 +73,9 @@ public class LoginPage extends BasePage {
         click(btnLogin);
     }
 
-
-
     public void logout(){
         click(By.id("liusuariolink"));
         waitForSeconds(2);
         clickWithRetry(By.xpath("//a[normalize-space()='Cerrar sesión']"));
     }
 }
-
-
-

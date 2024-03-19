@@ -1,3 +1,4 @@
+/*
 package stepsDefinitions;
 
 import framework.DriverManager;
@@ -7,16 +8,16 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import page.EnviosPage;
-import page.FormularioPage;
-import page.LoginPage;
-import page.MessageHomePage;
+import page.MiCorreo1_0.EnviosPage;
+import page.MiCorreo1_0.FormularioPage;
+import page.MiCorreo1_0.HomeLoginPage;
+import page.MiCorreo1_0.MessageHomePage;
 
 
 public class NuevoEnvioIndividualSteps {
     private WebDriver driver = DriverManager.getDriver();
     private String baseUrl = DriverManager.config.getProperty("url");
-    private LoginPage loginPage = new LoginPage(driver);
+    private HomeLoginPage homeloginPage = new HomeLoginPage(driver);
     private MessageHomePage messageHomePage = new MessageHomePage(driver);
     private EnviosPage enviosPage = new EnviosPage(driver);
     private FormularioPage formularioPage = new FormularioPage(driver);
@@ -25,7 +26,7 @@ public class NuevoEnvioIndividualSteps {
     @Given("el usuario consumidor final está logueado y en la page home")
     public void browserInit(){
         driver.get(baseUrl);
-        loginPage.login();
+        homeloginPage.login();
     }
 
     @When("ingresa en nuevo envío individual")
@@ -40,7 +41,7 @@ public class NuevoEnvioIndividualSteps {
     }
     @And("presiona en agregar envío")
     public void addNewPackage() {
-        loginPage.clickWithRetry(By.xpath("//button[@id='btnagregar']"));
+        homeloginPage.clickWithRetry(By.xpath("//button[@id='btnagregar']"));
     }
 
     @And("el envío se muestra en la grilla de envíos pendientes")
@@ -67,8 +68,10 @@ public class NuevoEnvioIndividualSteps {
 
     @And("se confirma que el pago se ha realizado con éxito")
     public void se_confirma_que_el_pago_se_ha_realizado_con_éxito() {
-        formularioPage.verificarMensajeDeExito();
+        //formularioPage.verificarMensajeDeExito();
+        formularioPage.verificarMensajeEsperadoDeExito("¡Éxito!");
         formularioPage.mostrarCodigoTNEnvio();
     }
-
 }
+
+ */

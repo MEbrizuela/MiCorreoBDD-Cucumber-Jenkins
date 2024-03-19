@@ -1,20 +1,18 @@
 package framework;
 
 import io.cucumber.java.After;
-import io.cucumber.java.AfterStep;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import page.BasePage;
-import page.LoginPage;
+import page.MiCorreo1_5.PageHomeLogin;
 
 public class Hooks {
     private static WebDriver driver;
     private static Scenario currentScenario;
     static BasePage basePage;
-    static LoginPage loginPage;
+    static PageHomeLogin pageHomelogin;
 
     @Before
     public void setUp(Scenario scenario) {
@@ -25,7 +23,7 @@ public class Hooks {
             driver = DriverManager.getDriver();
             // Configurar el escenario actual
             currentScenario = scenario;
-            loginPage = new LoginPage(driver);
+            pageHomelogin = new PageHomeLogin(driver);
         } catch (Exception e) {
             System.err.println("Error al inicializar el WebDriver: " + e.getMessage());
             // Puedes agregar lógica adicional aquí, como marcar el escenario como fallido
@@ -38,9 +36,9 @@ public class Hooks {
         // Tomar captura de pantalla al final del escenario
         takeScreenShot(scenario.isFailed());
         // Verificar si loginPage no es nulo antes de llamar a logout
-        if (loginPage != null) {
+        if (pageHomelogin != null) {
             try {
-                loginPage.logout();
+                pageHomelogin.logout();
             } catch (Exception e) {
                 System.err.println("Error al hacer logout: " + e.getMessage());
             }

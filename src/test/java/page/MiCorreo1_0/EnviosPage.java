@@ -1,9 +1,10 @@
-package page;
+package page.MiCorreo1_0;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import framework.BasePage;
 
-public class EnviosPage extends BasePage{
+public class EnviosPage extends BasePage {
 
     private By OrigenCampoRazonSocial = By.xpath("//input[@id='envio-origen-nombre']");
     private By OrigenCampoMail = By.xpath("//input[@id='envio-origen-mail-celular']']");

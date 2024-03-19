@@ -1,16 +1,20 @@
-package page;
+package framework;
 
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
+import java.util.Set;
+
 
 public class BasePage {
     private final WebDriver driver;
-    private final WebDriverWait wait;
+    public final WebDriverWait wait;
 
     public BasePage(WebDriver driver) {
         this.driver = driver;
@@ -47,6 +51,23 @@ public class BasePage {
         WebElement element = findElement(locator);
         actions.moveToElement(element).click().perform();
     }
+
+    public boolean elementExists(By locator) {
+        try {
+            return wait.until(ExpectedConditions.presenceOfElementLocated(locator)) != null;
+        } catch (NoSuchElementException e) {
+            return false;
+        }
+    }
+
+    // Método para seleccionar una opción de un dropdown por valor
+    public void selectOptionFromDropdownByValue(String dropdownId, String value) {
+        WebElement dropdownElement = driver.findElement(By.id(dropdownId));
+        Select dropdown = new Select(dropdownElement);
+        dropdown.selectByValue(value);
+    }
+
+
     public String getCurrentURL() {
         return driver.getCurrentUrl();
     }
@@ -80,6 +101,7 @@ public class BasePage {
         // Comparar el texto del sitio con el texto esperado
         return textoDelSitio.equals(textoEsperado);
     }
+
     public static void waitForSeconds(int seconds) {
         try {
             Thread.sleep(seconds * 1000);
@@ -90,6 +112,28 @@ public class BasePage {
 
     public void waitForElementToBeClickable(By locator) {
         wait.until(ExpectedConditions.elementToBeClickable(locator));
+    }
+    protected List<WebElement> sendWebElements(By locator) {
+        try {
+            return driver.findElements(locator);
+        } catch (NoSuchElementException e) {
+            System.out.println("Elemento no encontrado con el localizador proporcionado: " + locator);
+            return null;
+        }
+    }
+    public void clickLastElementInDropdown(By locator) {
+        List<WebElement> dropdownElements = sendWebElements(locator);
+
+        if (dropdownElements != null && !dropdownElements.isEmpty()) {
+            WebElement lastElement = dropdownElements.get(dropdownElements.size() - 1);
+            try {
+                lastElement.click();
+            } catch (Exception e) {
+                System.out.println("Error al hacer clic en el último elemento del menú desplegable: " + e.getMessage());
+            }
+        } else {
+            System.out.println("No se encontraron elementos en el dropdown con el locator proporcionado: " + locator);
+        }
     }
 
     public void scrollToBottom() {
@@ -102,15 +146,7 @@ public class BasePage {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
     }
 
-    public void switchToWindow(String windowHandle) {
-        driver.switchTo().window(windowHandle);
-    }
-
-    public void switchToDefaultContent() {
-        driver.switchTo().defaultContent();
-    }
-
-    private WebElement findElement(By locator) {
+    public WebElement findElement(By locator) {
         return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
     }
 
@@ -145,6 +181,41 @@ public class BasePage {
             // La validación no fue exitosa
             return false;
         }
+    }
+
+    // Método personalizado para cambiar al contexto de un iframe específico
+    public void switchToFrame(WebElement frameElement) {
+        driver.switchTo().frame(frameElement);
+    }
+
+    // Método personalizado para regresar al contexto del iframe padre
+    public void switchToParentFrame() {
+        driver.switchTo().parentFrame();
+    }
+
+    // Método para cambiar al contexto predeterminado de la página
+    public void switchToDefaultContent() {
+        driver.switchTo().defaultContent();
+    }
+
+    // Método para obtener los identificadores de todas las ventanas abiertas
+    public Set<String> getWindowHandles() {
+        return driver.getWindowHandles();
+    }
+
+    // Método para cambiar al contexto de una ventana específica
+    public void switchToWindow(String windowHandle) {
+        driver.switchTo().window(windowHandle);
+    }
+
+    // Cambia al contexto de un iframe utilizando su índice.
+    public void switchToFrameByIndex(int index) {
+        driver.switchTo().frame(index);
+    }
+
+    // Cambia al contexto de un iframe utilizando su nombre o ID.
+    public void switchToFrameByNameOrId(String nameOrId) {
+        driver.switchTo().frame(nameOrId);
     }
 
 }

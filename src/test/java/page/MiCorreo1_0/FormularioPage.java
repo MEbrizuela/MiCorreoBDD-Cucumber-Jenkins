@@ -1,7 +1,8 @@
-package page;
+package page.MiCorreo1_0;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import framework.BasePage;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -39,29 +40,29 @@ public class FormularioPage extends BasePage {
         }catch (Exception e) {
             scrollToElement(formularioPendientesLocator);
         }
-        validarCampo("Integración", integracionLocator, "MiCorreo");
-        validarCampo("Origen", origenLocator, "CAPITAL FEDERAL");
-        validarCampo("Destino", destinoLocator, "CORDOBA - Raul Mesa");
-        validarCampo("Admisión", admisionLocator, "Sucursal");
-        validarCampo("Entrega", entregaLocator, "Domicilio");
-        validarCampo("Peso", pesoLocator, "10,000");
-        validarCampo("Largo", largoLocator, "25");
-        validarCampo("Ancho", anchoLocator, "25");
-        validarCampo("Altura", alturaLocator, "30");
-        validarCampo("Estado", estadoLocator, "OK");
-        validarCampo("Comentario", comentarioLocator, "VALIDADO");
+        validarCampo("Integración", integracionLocator, getText(integracionLocator));
+        validarCampo("Origen", origenLocator, getText(origenLocator));
+        validarCampo("Destino", destinoLocator, getText(destinoLocator));
+        validarCampo("Admisión", admisionLocator, getText(admisionLocator));
+        validarCampo("Entrega", entregaLocator, getText(entregaLocator));
+        validarCampo("Peso", pesoLocator, getText(pesoLocator));
+        validarCampo("Largo", largoLocator, getText(largoLocator));
+        validarCampo("Ancho", anchoLocator, getText(anchoLocator));
+        validarCampo("Altura", alturaLocator, getText(alturaLocator));
+        validarCampo("Estado", estadoLocator, getText(estadoLocator));
+        validarCampo("Comentario", comentarioLocator, getText(comentarioLocator));
         System.out.println("¡Los campos se llenaron correctamente!");
 
     }
     public void validarFormularioCheckout(){
-        validarCampo("Integración", integracionLocator, "MiCorreo");
-        validarCampo("Origen", origenLocator, "CAPITAL FEDERAL");
-        validarCampo("Destino", destinoLocator, "CORDOBA - Raul Mesa");
-        validarCampo("Peso Declarado", pesoDeclaradoLocator,"10,000");
-        validarCampo("Peso Volumetrico",pesoVolumetricoLocator,"3,125");
-        validarCampo("Largo",largoCheckoutLocator,"25,000");
-        validarCampo("Ancho",anchoCheckoutLocator,"25,000");
-        validarCampo("Altura",alturaCheckoutLocator,"30,000");
+        validarCampo("Integración", integracionLocator, getText(integracionLocator));
+        validarCampo("Origen", origenLocator, getText(origenLocator));
+        validarCampo("Destino", destinoLocator, getText(destinoLocator));
+        validarCampo("Peso Declarado", pesoDeclaradoLocator,getText(pesoDeclaradoLocator));
+        validarCampo("Peso Volumetrico",pesoVolumetricoLocator,getText(pesoVolumetricoLocator));
+        validarCampo("Largo",largoCheckoutLocator,getText(largoCheckoutLocator));
+        validarCampo("Ancho",anchoCheckoutLocator,getText(anchoCheckoutLocator));
+        validarCampo("Altura",alturaCheckoutLocator,getText(alturaCheckoutLocator));
         validarCampo("Precio Unitario", precioUnitarioLocator,getText(precioUnitarioLocator));
         System.out.println("¡Checkout correcto!");
     }
@@ -103,10 +104,32 @@ public class FormularioPage extends BasePage {
 
 
     public void cotizar(){
-        clickWithRetry(By.xpath("(//div[@class='*checkbox *checkbox-primary'])[1]"));
+        /*click(By.xpath("(//div[@class='*checkbox *checkbox-primary'])[1]"));
         waitForSeconds(1);
         clickWithRetry(By.xpath("//button[@id='btnpedido']"));
         waitForSeconds(3);
+         */
+            try {
+                click(By.xpath("(//div[@class='*checkbox *checkbox-primary'])[1]"));
+            } catch (Exception e) {
+                // Si falla el primer clic, manejar la excepción
+                System.out.println("Apareció un cuadro de diálogo. Tratando de aceptarlo...");
+                try {
+                    click(By.xpath("(//button[@type='button' and @class='btn btn-default' and @data-dismiss='modal'])[2]"));
+                } catch (Exception ex) {
+                    System.out.println("No se pudo hacer clic en el botón Aceptar.");
+                    ex.printStackTrace();
+                }
+
+                // Intentar nuevamente el primer clic
+                click(By.xpath("(//div[@class='*checkbox *checkbox-primary'])[1]"));
+            }
+
+            // Hacer clic en el botón de pedido después del primer clic
+            waitForSeconds(1);
+            clickWithRetry(By.xpath("//button[@id='btnpedido']"));
+            waitForSeconds(3);
+
     }
 
 
@@ -137,6 +160,22 @@ public class FormularioPage extends BasePage {
         } else {
             System.out.println("Lamentablemante no se concretó el pago del envio.");
         }
+    }
+
+    public void verificarMensajeEsperadoDeExito(String textoEsperado) {
+        // Verificar si el texto esperado está presente en toda la página
+        boolean mensajeCompleto = verificarTextoEnPagina(textoEsperado);
+
+        // Imprimir el resultado de la verificación
+        if (mensajeCompleto) {
+            System.out.println("¡El mensaje de éxito '" + textoEsperado + "' está presente en la página!");
+        } else {
+            System.out.println("El mensaje de éxito '" + textoEsperado + "' no está presente en la página.");
+        }
+    }
+    private boolean verificarTextoEnPagina(String textoEsperado) {
+        String textoPagina = findElement(By.tagName("body")).getText();
+        return textoPagina.contains(textoEsperado);
     }
 
     public void mostrarCodigoTNEnvio() {

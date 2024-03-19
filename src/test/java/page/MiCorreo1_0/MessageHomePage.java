@@ -1,9 +1,10 @@
-package page;
+package page.MiCorreo1_0;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import framework.BasePage;
 
-public class MessageHomePage extends BasePage{
+public class MessageHomePage extends BasePage {
     private By EnvioPaqueteLocator = By.xpath("(//i[@class='caret'])[01]");
     private By NuevoEnvioLocator = By.xpath("//a[contains(text(),'Nuevo envío')]");
 
