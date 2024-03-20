@@ -107,14 +107,9 @@ public class PageNuevoEnvio extends BasePage {
     }
     public void expreso(){
         clickWithRetry(envioExpresoLocator);
-        //clickWithRetry(btnPagarLocator);
         waitForSeconds(2);
     }
-    public void preionarPagar1(){
-       clickWithRetry(btnPagarLocator);
-       waitForSeconds(1);
-    }
-
+    public void preionarPagar1(){clickDoble(btnPagarLocator);waitForSeconds(1);}
 
     public void EmpDomicilioExpresoCtaCte(){
         click(nuevoEnvioLocator);

@@ -62,3 +62,5 @@ b
 0src/test/java/page/MiCorreo1_5/PageCheckOut.java,7\6\7697e40402f29ac63c97153adadff3fa704f1fe9
 \
 ,src/test/java/page/MiCorreo1_5/PageForm.java,4\7\477ca7e1c1f51cb639778bc2e1369dd62819e746
+_
+/src/test/java/page/MiCorreo1_5/PagePayment.java,d\e\de20a900d418ac75eaf02d0f909ac100ace5ba4d

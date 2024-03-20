@@ -33,4 +33,5 @@ public class PageCheckOut extends BasePage {
         clickWithRetry(By.xpath("(//button[@id='btnPagar' and normalize-space()='Pagar'])[1]"));
         waitForSeconds(5);
     }
+
 }

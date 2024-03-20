@@ -28,6 +28,13 @@ public class BasePage {
     public void click(By locator) {
         findElement(locator).click();
     }
+    public void clickDoble(By locator){
+        try{click(locator);
+        }
+        catch (Exception e){
+            click(locator);
+        }
+    }
 
     public void clickWithRetry(By locator) {
         int maxAttempts = 3; // Número máximo de intentos

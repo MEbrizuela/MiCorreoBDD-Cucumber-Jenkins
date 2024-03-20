@@ -17,6 +17,8 @@ public class NuevoEnvioSteps {
     private PageNuevoEnvio pageNuevoEnvio = new PageNuevoEnvio(driver);
     private PageCheckOut pageCheckOut = new PageCheckOut(driver);
     private PageForm pageForm = new PageForm(driver);
+    private PagePayment pagePayment = new PagePayment(driver);
+
     @Given("el usuario está logueado y en la page home")
     public void elUsuarioEstáLogueadoYEnLaPageHome() {
         driver.get(baseUrl);
@@ -44,14 +46,12 @@ public class NuevoEnvioSteps {
     }
     @Then("realiza el pago del envío")
     public void realizaElPagoDelEnvío() {
-        // Write code here that turns the phrase above into concrete actions
         pageCheckOut.presionarPagar();
         pageForm.pagoConTarjeta();
     }
     @Then("se confirma que el pago se ha realizado con éxito")
     public void seConfirmaQueElPagoSeHaRealizadoConÉxito() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        pagePayment.verificarPago();
     }
 
 
