@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class PageCheckOut extends BasePage {
+    PageForm pageForm;
     private By integracionLocator = By.xpath("(//td[@class='table-text text-center'])[2]");
     private By origenLocator = By.xpath("(//td[@class='table-text text-center'])[4]");
     private By destinoLocator = By.xpath("(//td[@class='table-text text-center'])[5]");
@@ -17,6 +18,7 @@ public class PageCheckOut extends BasePage {
     private By pagoCtaCte = By.id("radioCuentaCorriente");
     public PageCheckOut(WebDriver driver){
         super(driver);
+        this.pageForm = new PageForm(driver);
     }
     public void validarFormularioCheckout(){
         //assertURL("https://wcpzt.correo.local/MiCorreo/public/misEnviosCheckout");
@@ -33,5 +35,18 @@ public class PageCheckOut extends BasePage {
         clickWithRetry(By.xpath("(//button[@id='btnPagar' and normalize-space()='Pagar'])[1]"));
         waitForSeconds(5);
     }
-
+    public void medioPago(String medioPago){
+        if (medioPago.equals("Tarjeta")){
+            presionarPagar();
+            pageForm.pagoConTarjeta();
+        }else if (medioPago.equals("Cuenta Corriente")){
+            click(pagoCtaCte);
+            presionarPagar();
+        }else if (medioPago.equals("Saldo")){
+            click(pagoSaldo);
+            presionarPagar();
+        }else {
+            throw new IllegalArgumentException("Medio de pago no valido: " + medioPago);
+        }
+    }
 }

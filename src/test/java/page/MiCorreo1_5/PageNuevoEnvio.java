@@ -12,7 +12,7 @@ public class PageNuevoEnvio extends BasePage {
     private By campoAltoLocator = By.xpath("//input[@id='alto']");
     private By campoPesoLocator = By.xpath("//input[@id='peso']");
     private By campoValorDelContenido = By.xpath("//input[@id='valorContenido']");
-    private By btnNextLocator = By.xpath("//button[@id='next']");
+    public By btnNextLocator = By.xpath("//button[@id='next']");
     private By tipoDeEntrega = By.xpath("//select[@id='tipoEntrega']");
     private By entregaDomicilio = By.xpath("//option[@value='domicilio']");
     private By entregaSucursal = By.xpath("//option[@value='sucursal']");
@@ -88,9 +88,18 @@ public class PageNuevoEnvio extends BasePage {
             click(btnNextLocator);
         }
     }
-    public void domicilio(){
+    public void tipoEntrega(String tipoEntrega){
         click(tipoDeEntrega);
         waitForSeconds(2);
+        if (tipoEntrega.equals("Domicilio")) {
+            entregaDomicilio();
+        } else if (tipoEntrega.equals("Sucursal")) {
+            entregaSucursal();
+        } else {
+            throw new IllegalArgumentException("Tipo de entrega no válido: " + tipoEntrega);
+        }
+    }
+    private void entregaDomicilio(){
         click(entregaDomicilio);
         writeText(nomApellidoLocator, "Juan Perez");
         waitForSeconds(1);
@@ -105,8 +114,36 @@ public class PageNuevoEnvio extends BasePage {
         writeText(observacionesLocator,"Casa con rejas negras");
         waitForSeconds(3);
     }
+    private void entregaSucursal(){
+        click(entregaSucursal);
+        writeText(nomApellidoLocatoSuc,"Carlos Sanchez");
+        waitForSeconds(1);
+        click(seleccionarProvOrigenSuc);
+        waitForSeconds(1);
+        selectOptionFromDropdownByValue("provincia2","F");
+        waitForSeconds(2);
+        selectOptionFromDropdownByValue("sucursalDestino2","5360");
+        waitForSeconds(1);
+        writeText(correoElectronicoSuc,"hola2@yopmail.com");
+        writeText(celularSuc,"3825564354");
+        waitForSeconds(3);
+    }
+    public void tipoProducto(String tipoProducto){
+        if (tipoProducto.equals("Clasico")) {
+            clasico();
+        } else if (tipoProducto.equals("Expreso")) {
+            expreso();
+        } else {
+            throw new IllegalArgumentException("Tipo de producto no válido: " + tipoProducto);
+        }
+        preionarPagar1();
+    }
     public void expreso(){
         clickWithRetry(envioExpresoLocator);
+        waitForSeconds(2);
+    }
+    public void clasico(){
+        clickWithRetry(envioClasicoLocator);
         waitForSeconds(2);
     }
     public void preionarPagar1(){clickDoble(btnPagarLocator);waitForSeconds(1);}
