@@ -5,7 +5,7 @@ Feature: TP - Nuevo envio individual
 		Given el usuario se situa en los campos email y password
 
 	#*Objetivo:* Verificar que un consumidor final pueda realizar un nuevo envío individual a domicilio a través del sistema de la aplicación, siguiendo el flujo crítico establecido y concretando con el pago exitoso del mismo.
-	@TEST_MCIB-87 @TESTSET_MCIB-84
+	@TEST_MCIB-87
 	Scenario Outline: Nuevo envio individual
 		Given el usuario '<tipoUsuario>' está logueado y en la page home
 		  When ingresa en nuevo envío individual
