@@ -35,7 +35,6 @@ public class MisEnviosOutlineSteps {
     public void llenaLosCamposDePaquete() {
         pageNuevoEnvio.caracteristicasDelPaquete();
     }
-
     @And("selecciona el {string} completa el formulario de destino")
     public void seleccionaElCompletaElFormularioDeDestino(String tipoEntrega) {
         pageNuevoEnvio.tipoEntrega(tipoEntrega);
@@ -48,7 +47,6 @@ public class MisEnviosOutlineSteps {
     public void seMuestraLaGrillaDeCheckout() {
         pageCheckOut.validarFormularioCheckout();
     }
-
     @Then("realiza el pago con {string} del envío")
     public void realizaElPagoConDelEnvío(String medioPago) {
         pageCheckOut.medioPago(medioPago);

@@ -72,4 +72,91 @@ public class Hooks {
     }
 }
 
+/*
+package framework;
+
+
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
+import io.cucumber.java.Scenario;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import page.MiCorreo1_5.PageHomeLogin;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Hooks {
+    private static WebDriver driver;
+    private static Scenario currentScenario;
+    public static PageHomeLogin pageHomeLogin;
+    private static List<byte[]> screenshots = new ArrayList<>();
+
+    @Before
+    public void setUp(Scenario scenario) {
+        // Inicializar el driver antes de cada escenario
+        try {
+            DriverManager.initializeDriver();
+            driver = DriverManager.getDriver();
+            currentScenario = scenario;
+            pageHomeLogin = new PageHomeLogin(driver); // Inicializar pageHomeLogin
+        } catch (Exception e) {
+            System.err.println("Error al inicializar el WebDriver: " + e.getMessage());
+        }
+    }
+
+    @After
+    public void tearDown(Scenario scenario) {
+        takeScreenShot(scenario);
+        // Verificar si pageHomeLogin no es nulo antes de llamar a logout
+        if (pageHomeLogin != null) {
+            try {
+                pageHomeLogin.logout();
+            } catch (Exception e) {
+                System.err.println("Error al hacer logout: " + e.getMessage());
+            }
+        }
+        // Cerrar el driver al final de cada escenario solo si no se ha cerrado ya
+        if (DriverManager.getDriver() != null) {
+            try {
+                DriverManager.quitDriver();
+            } catch (Exception e) {
+                System.err.println("Error al cerrar el driver: " + e.getMessage());
+            }
+        }
+
+    }
+
+    public static void takeScreenShot(Scenario scenario) {
+        if (scenario.isFailed()) {
+            try {
+                TakesScreenshot screenshotDriver = (TakesScreenshot) driver;
+                byte[] screenshot = screenshotDriver.getScreenshotAs(OutputType.BYTES);
+                addScreenShot(screenshot); // Agregar la captura de pantalla al ArrayList
+            } catch (Exception e) {
+                System.err.println("Error al tomar la captura de pantalla: " + e.getMessage());
+            }
+        }
+    }
+
+    public static void addScreenShot(byte[] screenshot) {
+        screenshots.add(screenshot);
+    }
+
+    @After(order = Integer.MAX_VALUE)
+    public void attachScreenshots() {
+        // Adjuntar todas las capturas de pantalla almacenadas en el ArrayList al escenario
+        for (byte[] screenshotData : screenshots) {
+            currentScenario.attach(screenshotData, "image/png", "Captura de pantalla");
+        }
+    }
+}
+ */
+
+
+
+
+
+
 
