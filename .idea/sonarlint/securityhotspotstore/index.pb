@@ -36,3 +36,5 @@ _
 /src/test/java/page/MiCorreo1_5/PagePayment.java,d\e\de20a900d418ac75eaf02d0f909ac100ace5ba4d
 i
 9src/test/java/stepsDefinitions/MisEnviosOutlineSteps.java,8\2\821944912a45033bb9bca092d9d0335552eb2320
+]
+-src/main/resources/features/1_MCIB-87.feature,b\7\b700d59a78edf5b989e5ea40476dc3e71fba1562
