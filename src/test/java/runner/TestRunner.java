@@ -15,7 +15,7 @@ import org.junit.runner.RunWith;
         snippets = CucumberOptions.SnippetType.CAMELCASE,
         features = {"src/main/resources/features"},
         glue = {"stepsDefinitions", "framework"}, // Agrega el paquete de los hooks y framework
-        tags =  "@MCIB-133 , @TEST_MCIB-87 , "
+        tags =  "@MCIB-133"
 )
 public class TestRunner {
 }
