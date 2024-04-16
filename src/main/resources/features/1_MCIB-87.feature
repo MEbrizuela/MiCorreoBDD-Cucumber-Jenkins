@@ -1,5 +1,5 @@
 @MCIB-133
-Feature: TE - Nuevo envio individual
+Feature: TP - Nuevo envio individual
 
 	Background:
 		#@PRECOND_MCIB-130

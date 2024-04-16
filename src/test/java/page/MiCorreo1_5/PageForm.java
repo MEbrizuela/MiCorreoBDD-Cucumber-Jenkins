@@ -7,7 +7,7 @@ import org.openqa.selenium.WebDriver;
 public class PageForm extends BasePage {
 
     protected By visaLocator = By.xpath("//label[@title='Visa']");
-    protected By numeroTarjeta = By.xpath("//input[@id='card_number']11");
+    protected By numeroTarjeta = By.xpath("//input[@id='card_number']");
     protected By codSeguridad = By.xpath("//input[@id='security_code']");
     protected By mesVencimiento = By.xpath("//input[@id='card_expiration_month']");
     protected By anoVencimiento = By.xpath("//input[@id='card_expiration_year']");
