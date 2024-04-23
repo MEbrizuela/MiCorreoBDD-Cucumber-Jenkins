@@ -142,6 +142,30 @@ public class BasePage {
             System.out.println("No se encontraron elementos en el dropdown con el locator proporcionado: " + locator);
         }
     }
+    /**
+     * Valida la longitud del valor de un campo de entrada.
+     *
+     * @param locator   El localizador del campo de entrada.
+     * @param minChars  La longitud mínima permitida para el valor del campo.
+     * @param maxChars  La longitud máxima permitida para el valor del campo.
+     * @return          Un mensaje indicando el resultado de la validación.
+     */
+    public String testCharacterLimit(By locator, int minChars, int maxChars) {
+        WebElement element = driver.findElement(locator);
+        String fieldValue = element.getAttribute("value");
+
+        // Verificar longitud mínima
+        if (fieldValue.length() < minChars) {
+            return String.format("El campo '%s' no cumple con la longitud mínima de caracteres (%d)", element.getAttribute("id"), minChars);
+        }
+
+        // Verificar longitud máxima
+        if (fieldValue.length() > maxChars) {
+            return String.format("El campo '%s' excede la longitud máxima de caracteres (%d)", element.getAttribute("id"), maxChars);
+        }
+
+        return "Validación de longitud de caracteres exitosa";
+    }
 
     public void scrollToBottom() {
         JavascriptExecutor js = (JavascriptExecutor) driver;
